@@ -1,0 +1,183 @@
+% $Header$
+
+\documentclass{beamer}
+
+
+\mode<presentation>
+{
+  \usetheme{default}
+  % oder ...
+  \usecolortheme{seahorse}
+  \usefonttheme[onlylarge]{structurebold}
+  \setbeamerfont*{frametitle}{size=\normalsize,series=\bfseries}
+  \setbeamertemplate{navigation symbols}{}
+
+  \setbeamercovered{transparent}
+  % oder auch nicht
+}
+
+
+\usepackage[english]{babel}
+\usepackage[sfdefault]{FiraSans}
+\usepackage{pygmentex}
+\usepackage{pifont}
+
+\setpygmented{lang=rust,font=\scriptsize}
+% oder was auch immer
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+
+\title[tbd.rs - an experiment with database interfaces]
+{tbd.rs - an experiment with database interfaces}
+
+\subtitle[or: how to use zero-sized types for great effect]
+{or: how to use zero-sized types for great effect}
+
+
+
+\author 
+{Florian Gilcher}
+
+\institute
+{
+  CEO and Rust-Trainer\\
+  Ferrous Systems GmbH }
+
+\date
+{Oct 29, 2018}
+
+\subject{Rust, Databases}
+
+% TODO Ferrous-Logo
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% \AtBeginSubsection[]
+% {
+%   \begin{frame}<beamer>{Gliederung}
+%     \tableofcontents[currentsection,currentsubsection]
+%   \end{frame}
+% }
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% \begin{frame}{Gliederung}
+%   \tableofcontents
+
+% \end{frame}
+
+\begin{frame}{WAT?}
+  \begin{itemize}
+    \item https://github.com/berlinrs/tbd.rs
+    \item A different database interaction library
+    \item Inspired by Rom.rb, Ecto, LINQ
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Goals}
+  \begin{itemize}
+    \item A more explicit (and controllable) mapping to databases
+    \item NoSQL capabilities
+    \item Flexible usage to database-specific features
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Goals}
+  \begin{itemize}
+    \item All Futures-based
+    \item aync-await compatible
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Notice}
+  This is a sketch!
+\end{frame}
+
+\begin{frame}{What does it look like?}
+  \inputpygmented[lang=rust]{code/basic.rs}
+\end{frame}
+
+\begin{frame}{A model definition}
+  \inputpygmented[lang=rust]{code/model.rs}
+\end{frame}
+
+\begin{frame}
+  How can we teach Rust about the structure of storage?
+\end{frame}
+
+\begin{frame}{Relation}
+  \inputpygmented[lang=rust]{code/relation.rs}
+\end{frame}
+
+\begin{frame}
+  Problem: we know that these exist, but in which groups?
+\end{frame}
+
+\begin{frame}{Repository}
+  \inputpygmented[lang=rust]{code/repository.rs}
+\end{frame}
+
+\begin{frame}
+  This is very abstract, let's make this concrete!
+\end{frame}
+
+\begin{frame}{Repository}
+  \inputpygmented[lang=rust]{code/blog_repository.rs}
+\end{frame}
+
+\begin{frame}{}
+  What does that give us? - Query expressions!
+\end{frame}
+
+\begin{frame}{Select}
+  \inputpygmented[lang=rust]{code/select.rs}
+\end{frame}
+
+\begin{frame}{Query Execution}
+  \inputpygmented[lang=rust]{code/execute.rs}
+\end{frame}
+
+\begin{frame}{Note}
+  This also allows use to contrain queries to the relations in a repository. 
+\end{frame}
+
+\begin{frame}{Note}
+  The repository and relations are not coupled to the query language, others can be used.
+\end{frame}
+
+
+\begin{frame}{Not shown}
+  Storage: mapping Repositories to the storage Gateway. (I have that built for Sqlite3)
+\end{frame}
+
+\begin{frame}{Missing}
+  Field-level operations such as aggregations or partial queries, a fully fledged mapping step.
+\end{frame}
+
+\begin{frame}{Note}
+  Code-generation(macros, derives, proc macros) for this is feasible and wanted at some point, but I want to get the API stable first.
+\end{frame}
+
+\begin{frame}{Bikeshedding}
+  \begin{itemize}
+    \item See github.com/berlinrs/tbd.rs
+    \item See "NOTES.md" for implementation notes and thoughts
+    \item Find me on Discord(@skade)/Twitter(@argorak)/wherever if you want to discuss
+  \end{itemize}
+\end{frame}
+
+\end{document}
+
+
+
